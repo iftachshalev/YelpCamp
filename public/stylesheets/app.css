@@ -1,0 +1,44 @@
+.f-Sansita {
+	font-family: 'Sansita Swashed', cursive;
+}
+
+.no-space {
+	padding: 0px;
+}
+
+.hand-width {
+	 width: 100%;
+}
+
+.sp-hr {
+	 height: 12px;
+	 border: 0;
+	 box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+.f-Poppins{
+	text-align: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+.t-new-1{
+	width: 30%;
+	margin: 40px auto;
+}
+
+.st-nav{
+	background-color: #f7f7f7;
+	border-bottom: 2px solid #ebe1e1;
+}
+
+.on-repet {
+	color: "#5e5e5e";
+}
+
+.t-header-1{
+	font-size: 27px;
+}
+
+.disin {
+	display: inline;
+}

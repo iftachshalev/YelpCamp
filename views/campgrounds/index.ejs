@@ -16,10 +16,10 @@
 	<div class="row text-center">
 		<% camp.forEach(function(ob){ %>
 			<div class="col-md-3 col-sm-6">
-				<div class="card mb-4">
-					<img src="<%= ob.image %>" class="img-thumbnail"></img>
+				<div class="card img-thumbnail">
+					<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
 					<div class="caption">
-						<h4><%= ob.name %></h4>
+						<h4 class="mb-2 mt-2"><%= ob.name %></h4>
 					</div>
 					<p>
 						<a href="/campgrounds/<%= ob._id%>" class="btn btn-primary">More Info</a>
