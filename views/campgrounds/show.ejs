@@ -46,7 +46,12 @@
 							<p class="f-Sansita">
 								<%= comment.text %>
 							</p>
-							<a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+							<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+								<a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
+								<form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="disin">
+									<input type="submit" name="" class="btn btn-xs btn-danger" value="Delete">
+								</form>
+							<% } %>
 							<hr>
 						</div>		
 					</div>

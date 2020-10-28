@@ -44,6 +44,7 @@ app.use((req, res, next) => {
 	next();
 })
 
+
 app.use(indexRoutes);
 app.use(campgroundsRoutes);
 app.use(commentRoutes);
