@@ -6,6 +6,7 @@ const express             = require("express"),
 	User                  = require("./models/user"),
 	mongoose              = require('mongoose'),
 	passport              = require("passport"),
+	flash                 = require("connect-flash"),
 	LocalStrategy         = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose"),
 	Campground            = require("./models/campground"),
@@ -19,6 +20,7 @@ const express             = require("express"),
 // <<<<<<<< !requires!
 
 // seedDB();
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost:27017/yelp_camp', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -30,6 +32,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }));
+app.use(flash())
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -41,8 +44,10 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
 	next();
-})
+});
 
 
 app.use(indexRoutes);
