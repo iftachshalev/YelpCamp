@@ -26,16 +26,21 @@ router.post("/campgrounds", MWO.isLoggedIn, (req, res) => {
 		image           = req.body.image,
 		desc            = req.body.description,
 		newCampground   = {name: name, price: price, image: image, description: desc, author: {id: req.user._id, username: req.user.username}};
-	Campground.create(newCampground, (err, campground) => {
-		if(err) {
-			console.log(err);
-			req.flash("error", "Can't create a campground");
-			res.redirect("back");
-		} else {
-			res.redirect("/campgrounds")
-		};
-	});
-	
+	function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n);} 
+	if(isNumber(price)) {
+		Campground.create(newCampground, (err, campground) => {
+			if(err) {
+				console.log(err);
+				req.flash("error", "Can't create a campground");
+				res.redirect("back");
+			} else {
+				res.redirect("/campgrounds")
+			};
+		});
+	} else {
+		req.flash("error", "Something went wrong");
+		res.redirect("back");
+	};
 });
 
 router.get("/campgrounds/:id", (req, res) => {
