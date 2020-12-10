@@ -2,33 +2,100 @@
 
 <div class="container">
 
-	<header class="jumbotron">
+	<header class="jumbotron mt-3">
 		<div class="container">
 			<h1>Welcome To YelpCamp <i class="fas fa-campground "></i></h1>
 			<p><b>View our hand-picked campgrounds from all over the world</b></p>
 			<p>
 				<a href="/campgrounds/new" class="btn btn-primary btn-large"><i class="fas fa-plus"></i> Add New Campground</a>
 			</p>
-			
 		</div>
 	</header>
-
-	<div class="row text-center">
-		<% camp.forEach(function(ob){ %>
-			<div class="col-md-3 col-sm-6">
-				<div class="card img-thumbnail">
-					<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
-					<div class="caption">
-						<h4 class="mb-2 mt-2"><%= ob.name %></h4>
+	<% var state = 4 %>
+	<% if(state === 1) { %>
+		<div class="row text-center">
+			<% for(let i = camp.length; i > 0; i--) { %>
+				<% var ob = camp[i - 1] %>
+				<div class="col-md-3 col-sm-6">
+					<div class="card img-thumbnail">
+						<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
+						<div class="caption">
+							<h4 class="mb-2 mt-2"><%= ob.name %></h4>
+						</div>
+						<p>
+							<a href="/campgrounds/<%= ob._id%>" class="btn btn-primary"><i class="fas fa-align-justify"></i> More Info</a>
+						</p>
 					</div>
-					<p>
-						<a href="/campgrounds/<%= ob._id%>" class="btn btn-primary"><i class="fas fa-align-justify"></i> More Info</a>
-					</p>
+				</div>
+			<% }; %>
+		</div>
+	<% } else if(state === 2) {%>
+		<div class="row text-center">
+			<% for(let i = camp.length; i > 0; i--) { %>
+				<% var ob = camp[i - 1] %>
+				<div class="col-md-12 mb-4">
+					<div class="card img-thumbnail no-space">
+						<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
+						<div class="caption">
+							<h4 class="mb-2 mt-2"><%= ob.name %></h4>
+						</div>
+						<div class="caption">
+							<p class="f-Sansita"><%= ob.description.substring(0, 1000) %> <%= (ob.description.length > 1000) ? "..." : "" %></p>
+						</div>
+						<p>
+							<a href="/campgrounds/<%= ob._id %>" class="btn btn-primary"><i class="fas fa-align-justify"></i> More Info</a>
+						</p>
+					</div>
+				</div>
+			<% }; %>
+		</div>
+	<% } else if(state === 3) { %>
+		<div class="row text-center">
+			<% for(let i = camp.length; i > 0; i--) { %>
+				<% var ob = camp[i - 1] %>
+				<div class="col-md-12 mb-3">
+					<div class="card">
+						<div class="row" style="width: 100%">
+							<div class="col-md-4">
+								<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
+							</div>
+							<div class="col-md-8">
+								<h4 class="mb-2 mt-2"><%= ob.name %></h4>
+								<p class="f-Sansita"><%= ob.description.substring(0, 500) %> <%= (ob.description.length > 500) ? "..." : "" %></p>
+								<p>
+									<a href="/campgrounds/<%= ob._id %>" class="btn btn-primary"><i class="fas fa-align-justify"></i> More Info</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% }; %>
+		</div>
+	<% } else if(state === 4) { %>
+		<% for(let i = camp.length; i > 0; i--) { %>
+			<% var ob = camp[i - 1] %>
+			<div class="card mb-2">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="<%= ob.image %>" class="card-img-top hand-width"></img>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h4 class="rounded float-right">$<%= ob.price %>/night</h4>
+							<h5 class="card-title"><%= ob.name %></h5>
+							<p class="f-Sansita card-text"><%= ob.description.substring(0, 500) %> <%= (ob.description.length > 500) ? "..." : "" %></p>
+							<p class="card-text">
+								<small class="text-muted"><%= ob.location %></small>
+							</p>
+							<p>
+								<a href="/campgrounds/<%= ob._id %>" class="btn btn-primary"><i class="fas fa-align-justify"></i> More Info</a>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
-		<% }); %>
-	</div>
-
+		<% }; %>
+	<% } %>
 </div>
 <%- include("../partials/footer") %>
 

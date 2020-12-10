@@ -1,6 +1,7 @@
-var express    = require("express"),
+const express    = require("express"),
 	router     = express.Router(),
 	Campground = require("../models/campground"),
+	Comment = require("../models/comment"),
 	MWO        = require("../middleware");
 
 
@@ -24,8 +25,9 @@ router.post("/campgrounds", MWO.isLoggedIn, (req, res) => {
 	const name          = req.body.name,
 		price           = req.body.price,
 		image           = req.body.image,
+		location        = req.body.location,
 		desc            = req.body.description,
-		newCampground   = {name: name, price: price, image: image, description: desc, author: {id: req.user._id, username: req.user.username}};
+		newCampground   = {name: name, price: price, image: image, location: location, description: desc, author: {id: req.user._id, username: req.user.username}};
 	function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n);} 
 	if(isNumber(price)) {
 		Campground.create(newCampground, (err, campground) => {
@@ -68,7 +70,7 @@ router.get("/campgrounds/:id/edit", MWO.checkCampgroundOwnership, (req, res) => 
 });
 
 router.put("/campgrounds/:id/edit", MWO.checkCampgroundOwnership, (req, res) => {
-	var data = {name: req.body.name, image: req.body.image, description:req.body.description};
+	var data = {name: req.body.name, price: req.body.price, location: req.body.location, image: req.body.image, description:req.body.description};
 	Campground.findByIdAndUpdate(req.params.id, data, (err, updateCamp) => {
 		if(err) {
 			console.log(err);
@@ -87,6 +89,7 @@ router.delete("/campgrounds/:id", MWO.checkCampgroundOwnership, (req, res) => {
 			req.flash("error", "Campground not found");
 			res.redirect("back");
 		};
+		req.flash("success", "Campground had been deleted");
 		res.redirect("/campgrounds");
 	})
 })

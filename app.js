@@ -4,13 +4,13 @@ const express             = require("express"),
 	bodyParser            = require("body-parser"),
 	port                  = 3000,
 	User                  = require("./models/user"),
+	seedsDB               = require("./seeds/index"),
 	mongoose              = require('mongoose'),
 	passport              = require("passport"),
 	flash                 = require("connect-flash"),
 	LocalStrategy         = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose"),
 	Campground            = require("./models/campground"),
-	seedDB                = require("./seeds"),
 	Comment               = require("./models/comment"),
 	session               = require("express-session"),
 	methodOverride        = require("method-override"),
@@ -19,7 +19,7 @@ const express             = require("express"),
 	indexRoutes           = require("./routes/index");
 // <<<<<<<< !requires!
 
-// seedDB();
+seedsDB();
 mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost:27017/yelp_camp', {
   useNewUrlParser: true,
